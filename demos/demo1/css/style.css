@@ -1,0 +1,55 @@
+body {
+    font-family: sans-serif;
+    margin: 1em;
+    display:block;
+}
+
+h1 {
+    font-variant: small-caps;
+}
+
+div.stanza {
+    margin-top: 1em;
+}
+
+p {
+    margin:0;
+}
+
+p.english {
+    display:none;
+    margin: .1em .5em .25em;
+    color: gray;
+}
+
+div.notes {
+    display: none
+}
+
+span.show,
+span.hide {
+    margin: .1em;
+    border: .25px solid gray;
+    padding: 0em .1em;
+}
+ 
+.hide:focus ~ p.english,
+.hide:focus ~ div.notes {
+  display: none;
+}
+.show:focus ~ p.english,
+.show:focus ~ div.notes {
+    display: block;
+}
+
+div.notes {
+    margin: 1em 2em 1.5em;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    color: gray;
+    max-width: 20em;
+}
+
+div.notes p {
+    padding: .25em 1em .5em;
+}
