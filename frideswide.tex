@@ -1,0 +1,291 @@
+% !TeX program = lualatex
+\documentclass[
+  paper=234mm:156mm, % Royal size
+  DIV=classic, % margin grid calculation
+  % BCOR=5mm, % binding correction
+  fontsize=11pt, % base font size
+  headings=normal, % base heading sizes/spacing
+  parskip=never % no space between paragraphs
+]{scrbook}
+
+% Font settings
+\usepackage{fontspec,microtype}
+\defaultfontfeatures{Scale=MatchLowercase}
+\defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+
+\setmainfont{ArnoPro}[
+  % Path = {./fonts/},
+  % Extension = {.otf},
+  UprightFont = {*-Regular},
+  ItalicFont = {*-Italic},
+  BoldFont = {*-Smbd},
+  BoldItalicFont = {*-SmbdItalic},
+  Numbers={Lowercase,Proportional},
+  UprightFeatures={
+    SizeFeatures={
+      {Size={-8.5},      Font=*-Caption},
+      {Size={8.6-10.99}, Font=*-SmText},
+      {Size={11-14},     Font=*-Regular},
+      {Size={14.1-21.59},Font=*-Subhead},
+      {Size={21.6-35.99},Font=*-Display},
+      {Size={36-},       Font=*-LightDisplay}
+    },
+  },
+  ItalicFeatures={
+    SizeFeatures={
+      {Size={-8.5},      Font=*-ItalicCaption},
+      {Size={8.6-10.99}, Font=*-ItalicSmText},
+      {Size={11-14},     Font=*-Italic},
+      {Size={14.1-21.59},Font=*-ItalicSubhead},
+      {Size={21.6-35.99},Font=*-ItalicDisplay},
+      {Size={36-},       Font=*-LightItalicDisplay}
+    },
+  },
+  BoldFeatures={
+    SizeFeatures={
+      {Size={-8.5},      Font=*-SmbdCaption},
+      {Size={8.6-10.99}, Font=*-SmbdSmText},
+      {Size={11-14},     Font=*-Smbd},
+      {Size={14.1-21.59},Font=*-SmbdSubhead},
+      {Size={21.6-},     Font=*-SmbdDisplay}
+    },
+  },
+  BoldItalicFeatures={
+    SizeFeatures={
+      {Size={-8.5},      Font=*-SmbdItalicCaption},
+      {Size={8.6-10.99}, Font=*-SmbdItalicSmText},
+      {Size={11-14},     Font=*-SmbdItalic},
+      {Size={14.1-21.59},Font=*-SmbdItalicSubhead},
+      {Size={21.6-},     Font=*-SmbdItalicDisplay}
+    },
+  }
+]
+
+% use Junicode for other characters
+\usepackage{newunicodechar}
+\newfontfamily{\fallbackfont}{Junicode}
+\DeclareTextFontCommand{\textfallback}{\fallbackfont}
+\newunicodechar{⟨}{\textfallback{⟨}}
+\newunicodechar{⟩}{\textfallback{⟩}}
+\newunicodechar{⟦}{\textfallback{⟦}}
+\newunicodechar{⟧}{\textfallback{⟧}}
+\newunicodechar{✠}{\textfallback{✠}}
+\newunicodechar{˷}{\textfallback{˷}}
+\newunicodechar{⸝}{\textfallback{⸝}}
+\newunicodechar{⸵}{\textfallback{}} % MUFI PUA
+
+% use OpenType superscripts
+\usepackage{realscripts}
+
+% use all small caps for \textsc via OpenType
+\let\mixtextsc\textsc
+\renewcommand{\textsc}[1]{\mixtextsc{\addfontfeatures{Letters=UppercaseSmallCaps}{#1}}}
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+% Adjust headings
+\setkomafont{sectioning}{\normalfont}
+\setkomafont{subsection}{\itshape}
+\setkomafont{subsubsection}{\itshape}
+\setkomafont{paragraph}{\scshape\addfontfeatures{Letters=UppercaseSmallCaps}}
+\setkomafont{descriptionlabel}{\normalfont\scshape\addfontfeatures{Letters=UppercaseSmallCaps}}
+
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+% Move footnote marker into left margin
+\deffootnote{0em}{1.6em}{\thefootnotemark\enskip}
+
+\setfootnoterule{0pt} % Remove footnote rule
+
+\usepackage{enumitem} % custom list formatting
+\providecommand{\tightlist}{% lists without extra space
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{longtable,booktabs} % tables
+
+% Manual bibliography format
+\makeatletter
+\renewenvironment{thebibliography}[1]
+{\list{}%
+  {\setlength{\labelwidth}{0pt}%
+    \setlength{\labelsep}{0pt}%
+    \setlength{\leftmargin}{\parindent}%
+    \setlength{\itemindent}{-\parindent}%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}%
+    \@openbib@code
+    \usecounter{enumiv}}%
+  \sloppy
+  \sfcode`\.\@m}
+{\def\@noitemerr
+  {\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist}
+\makeatother
+
+% PDF links
+\usepackage[open]{bookmark}
+\hypersetup{
+  unicode,
+  hidelinks,
+  pdftitle={Two Priors and a Princess: St Frideswide in Twelfth-Century Oxford},
+  pdfauthor={Andrew Dunning with Benedicta Ward},
+}
+\usepackage{xurl}
+\urlstyle{same}  % do not use monospace font for URLs
+
+% Fix problems with old-style figures in URLs with LuaTeX: see <https://github.com/lualatex/luaotfload/issues/204>
+\makeatletter
+\g@addto@macro\UrlSpecials{%
+  \do\0{\mbox{\UrlFont\char`\0}}%
+  \do\1{\mbox{\UrlFont\char`\1}}%
+  \do\2{\mbox{\UrlFont\char`\2}}%
+  \do\3{\mbox{\UrlFont\char`\3}}%
+  \do\4{\mbox{\UrlFont\char`\4}}%
+  \do\5{\mbox{\UrlFont\char`\5}}%
+  \do\6{\mbox{\UrlFont\char`\6}}%
+  \do\7{\mbox{\UrlFont\char`\7}}%
+  \do\8{\mbox{\UrlFont\char`\8}}%
+  \do\9{\mbox{\UrlFont\char`\9}}%
+}
+\makeatother
+
+\usepackage{graphicx} % enable image insertion
+
+
+% Reledmac setup
+
+% apparatus: apparatus criticus = A, commentary = B
+\usepackage[series={A,B},noeledsec,noend,nofamiliar,noledgroup,nopbinverse]{reledmac}
+\Xnotenumfont{\bfseries} % note line references in bold
+\Xnumberonlyfirstinline % do not repeat line numbers
+\Xnumberonlyfirstintwolines % take ranges into account for repetition
+\AtBeginDocument{% allow notes to take up more of page
+   \Xmaxhnotes{0.9\textheight}
+}
+\Xnonbreakableafternumber % disallow breaks after line references
+% character space in place of lemma separator
+\Xinplaceoflemmaseparator{\fontdimen2\font plus\fontdimen3\font minus\fontdimen4\font} 
+
+% Change font size for marginal text
+\renewcommand{\numlabfont}{\normalfont\footnotesize}
+\renewcommand{\ledlsnotefontsetup}{\raggedleft\footnotesize}
+\renewcommand{\ledrsnotefontsetup}{\raggedright\footnotesize}
+
+% sidenotes and line numbering
+\sidenotemargin{outer}
+\leftnoteupfalse \rightnoteupfalse % Align sidenotes with first, not last line
+\linenummargin{outer}
+
+% horizontal distance of line numbers/sidenotes from text
+\setlength{\linenumsep}{10pt}
+\setlength{\ledlsnotesep}{10pt}
+\setlength{\ledrsnotesep}{10pt}
+
+% Arrange critical apparatus as one paragraph per page
+\Xarrangement[A]{paragraph}
+\Xsymlinenum[A]{\textbar{}}
+\Xafternote[A]{1em plus.4em minus.4em}
+\Xaftersymlinenum[A]{1em plus.4em minus.4em}
+
+% Arrange commentary as paragraphs grouped by line
+\Xlemmafont[B]{\itshape}
+\Xlemmaseparator[B]{\emph{:}}
+\Xwrapcontent[B]{\foreignlanguage{canadian}} % set commentary text to English
+\Xparindent[B]
+\Xinplaceofnumber[B]{0pt}
+\Xgroupbyline[B]
+\Xgroupbylineseparetwolines[B]
+\Xsymlinenum[B]{◆}
+\Xafternote[B]{0.6em plus.4em minus.4em}
+\Xaftersymlinenum[B]{0.6em plus.4em minus.4em}
+
+% Prefixes for cross references
+\setapprefprefixsingle{line }
+\setapprefprefixmore{lines }
+\setSErefprefixsingle{line }
+\setSErefprefixmore{lines }
+\setSErefonlypageprefixsingle{p.~}
+\setSErefonlypageprefixmore{pp.~}
+
+% Verse
+\setstanzaindents{1,1}
+\setcounter{stanzaindentsrepetition}{1}
+\setlength{\stanzaindentbase}{\parindent}
+\AtEveryStanza*{\vspace{0.5\baselineskip}}
+\AtEveryStopStanza*{\vspace{0.5\baselineskip}}
+
+% Define languages
+\usepackage[
+  latin.classic, % Latin without u/v distinction
+  italian,
+  spanish,
+  french,
+  ngerman,
+  icelandic,
+  main=canadian,
+]{babel}
+\frenchsetup{AutoSpacePunctuation=false}
+
+% Language switching commands
+\providecommand{\textlatin}{}
+\renewcommand{\textlatin}[2][]{\foreignlanguage{latin}{#2}}
+\newenvironment{latin}[2][]{\begin{otherlanguage}{latin}}{\end{otherlanguage}}
+\newcommand{\textitalian}[2][]{\foreignlanguage{italian}{#2}}
+\newenvironment{italian}[2][]{\begin{otherlanguage}{italian}}{\end{otherlanguage}}
+\newcommand{\textfrench}[2][]{\foreignlanguage{french}{#2}}
+\newenvironment{french}[2][]{\begin{otherlanguage}{french}}{\end{otherlanguage}}
+\newcommand{\textgerman}[2][]{\foreignlanguage{ngerman}{#2}}
+\newenvironment{german}[2][]{\begin{otherlanguage}{ngerman}}{\end{otherlanguage}}
+\newcommand{\texticelandic}[2][]{\foreignlanguage{icelandic}{#2}}
+\newenvironment{icelandic}[2][]{\begin{otherlanguage}{icelandic}}{\end{otherlanguage}}
+\let\oritextspanish\textspanish
+\AddBabelHook{spanish}{beforeextras}{\renewcommand{\textspanish}{\oritextspanish}}
+\AddBabelHook{spanish}{afterextras}{\renewcommand{\textspanish}[2][]{\foreignlanguage{spanish}{##2}}}
+
+% Hyphenation exceptions
+\input{ushyphex} % standard English exceptions
+\babelhyphenation[canadian]{
+  Beck-et
+  Gros-se-teste
+  manu-script
+  me-di-eval
+}
+
+\usepackage[prevent-all]{widows-and-orphans}
+
+\recalctypearea % ensure text block matches font metrics
+
+\begin{document}
+
+
+\frontmatter
+
+\input{title}
+
+\tableofcontents
+
+\input{acknowledgements}
+
+\input{abbreviations}
+
+
+\mainmatter
+
+\input{introduction}
+
+\input{life-anon}
+
+\input{life-robert}
+
+\input{life-romsey}
+
+\input{robert-letter}
+
+\input{philip-miracles}
+
+\backmatter
+
+\input{bibliography}
+
+
+\end{document}
