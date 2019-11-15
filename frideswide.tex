@@ -12,7 +12,11 @@
 \usepackage{fontspec,microtype}
 \defaultfontfeatures{Scale=MatchLowercase}
 \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\setmainfont[Numbers={Lowercase,Proportional}]{Arno Pro}
+\IfFontExistsTF{Arno Pro}{%
+  \setmainfont[Numbers={Lowercase,Proportional}]{Arno Pro}
+}{
+  \usepackage{libertinus}
+}
 
 % use Junicode for other characters
 \usepackage{newunicodechar}
