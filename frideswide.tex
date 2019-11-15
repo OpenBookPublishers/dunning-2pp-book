@@ -9,13 +9,14 @@
 ]{scrbook}
 
 % Font settings
-\usepackage{fontspec,microtype}
+\usepackage{unicode-math,microtype}
 \defaultfontfeatures{Scale=MatchLowercase}
 \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\IfFontExistsTF{Arno Pro}{%
+
+\IfFontExistsTF{Arno Pro}{% use Arno, or Libertinus if not present
   \setmainfont[Numbers={Lowercase,Proportional}]{Arno Pro}
 }{
-  \usepackage{libertinus}
+  \usepackage[osf,p]{libertinus}
 }
 
 % use Junicode for other characters
